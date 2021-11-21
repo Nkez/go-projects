@@ -16,7 +16,7 @@ func main() {
 	imputString := "foo(bar(baz))blim"
 	fmt.Println(CreateWord(imputString))
 	DuplicateEncode("din")
-	number := []int{1, -2, -3, -4}
+	number := []int{1, -2, 2, -4}
 	PositiveSum(number)
 	ToJadenCase("most trees are blue")
 	Divisors(500000)

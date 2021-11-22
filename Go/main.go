@@ -12,7 +12,7 @@ func main() {
 		{0, 1, 0, 0},
 		{1, 0, 0, 1},
 		{1, 1, 1, 1}}
-	MatrixElementSum(matrix)
+	fmt.Println((matrix))
 	imputString := "foo(bar(baz))blim"
 	fmt.Println(CreateWord(imputString))
 	DuplicateEncode("din")

@@ -1,0 +1,42 @@
+[
+  {
+    "id" : "1",
+    "name" : "Andrey",
+    "class" : "10"
+  },
+  {
+    "id" : "2",
+    "name" : "Vlad",
+    "class" : "9"
+  },
+  {
+    "id" : "3",
+    "name" : "Olga",
+    "class" : "3"
+  },
+  {
+    "id" : "4",
+    "name" : "Oleg",
+    "class" : "11"
+  },
+  {
+    "id" : "5",
+    "name" : "Igor",
+    "class" : "11"
+  },
+  {
+    "id" : "6",
+    "name" : "Sasha",
+    "class" : "3"
+  },
+  {
+    "id" : "7",
+    "name" : "Biba",
+    "class" : "7"
+  },
+  {
+    "id" : "8",
+    "name" : "Boba",
+    "class" : "3"
+  }
+]

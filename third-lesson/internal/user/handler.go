@@ -4,10 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/julienschmidt/httprouter"
-	"io"
-	"io/ioutil"
-
 	"golang/basic/internal/handlers"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -64,8 +62,7 @@ func IsEleven() []string {
 func NameById(str string) []string {
 	s := make([]string, 0)
 	a := ReadFromFile()
-	for i, c := range a {
-		fmt.Println(i, c)
+	for _, c := range a {
 		if c.Id == str {
 			s = append(s, c.Name)
 		}
@@ -73,11 +70,30 @@ func NameById(str string) []string {
 	return s
 }
 
+func AddStudent() []Student {
+	data := ReadFromFile()
+
+	s := Student{"14", ":Lupa", "123"}
+	data = append(data, s)
+
+	// Preparing the data to be marshalled and written.
+	dataBytes, err := json.Marshal(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = ioutil.WriteFile("D:\\Go\\go-projects\\third-lesson\\mocks\\data.json", dataBytes, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return data
+}
+
 func (h *handler) Register(router *httprouter.Router) {
 	router.GET("/students", h.GetInfo)
 	router.GET("/students/1", h.GetById)
 	router.GET("/students/grade=11", h.GetAllEleven)
-	router.POST("/students/add", h.AddStudent)
+	router.GET("/students/new", h.AddStudent)
 }
 
 func (h *handler) GetInfo(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
@@ -102,25 +118,9 @@ func (h *handler) GetAllEleven(w http.ResponseWriter, r *http.Request, params ht
 }
 
 func (h *handler) AddStudent(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	var todo Student
-	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
-	if err != nil {
-		panic(err)
-	}
-	if err := r.Body.Close(); err != nil {
-		panic(err)
-	}
-	if err := json.Unmarshal(body, todo); err != nil {
-		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-		w.WriteHeader(422) // unprocessable entity
-		if err := json.NewEncoder(w).Encode(err); err != nil {
-			panic(err)
-		}
-		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-		w.WriteHeader(http.StatusCreated)
-		if err := json.NewEncoder(w).Encode("ADDStudent"); err != nil {
-			panic(err)
-		}
-	}
+	data := AddStudent()
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(data)
 
 }

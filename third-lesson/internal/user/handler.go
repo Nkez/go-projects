@@ -29,7 +29,6 @@ type Student struct {
 func ReadFromFile() []Student {
 	js, err := os.Open("D:\\Go\\go-projects\\third-lesson\\mocks\\data.json")
 	if err != nil {
-		fmt.Println("AAAAAAAAAAAa")
 		log.Fatal(err)
 
 	}
@@ -76,7 +75,6 @@ func AddStudent() []Student {
 	s := Student{"14", ":Lupa", "123"}
 	data = append(data, s)
 
-	// Preparing the data to be marshalled and written.
 	dataBytes, err := json.Marshal(data)
 	if err != nil {
 		log.Fatal(err)
@@ -91,7 +89,7 @@ func AddStudent() []Student {
 
 func (h *handler) Register(router *httprouter.Router) {
 	router.GET("/students", h.GetInfo)
-	router.GET("/students/1", h.GetById)
+	router.GET("/students/students?id=1", h.GetById)
 	router.GET("/students/grade=11", h.GetAllEleven)
 	router.GET("/students/new", h.AddStudent)
 }
